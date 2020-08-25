@@ -2,6 +2,7 @@ import re
 
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
+from django import forms
 
 
 def list_entries():
@@ -35,3 +36,13 @@ def get_entry(title):
         return f.read().decode("utf-8")
     except FileNotFoundError:
         return None
+
+class Create_wiki(forms.Form):
+    title = forms.CharField(label="title")
+    content = forms.CharField(label="content")
+
+class Edit_existing_wiki(forms.Form):
+    new_content = forms.CharField(widget=forms.Textarea(attrs={
+        'class' : 'form-control col-md-7 col-lg-7',
+        'rows' : 10}))
+
